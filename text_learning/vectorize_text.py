@@ -51,8 +51,9 @@ for name, from_person in [("sara", from_sara), ("chris", from_chris)]:
             texts = parseOutText(email)
             ### use str.replace() to remove any instances of the words
             ### ["sara", "shackleton", "chris", "germani"]
-            for w in ["sara", "shackleton", "chris", "germani"]:
-                texts.replace(w, "")
+            ## added sshacklensf cgermannsf in Feature Selection exer
+            for w in ["sara", "shackleton", "chris", "germani", "sshacklensf", "cgermannsf"]: 
+                texts = texts.replace(w, "")
             ### append the text to word_data
             word_data.append(texts)
             ### append a 0 to from_data if email is from Sara, and 1 if email is from Chris

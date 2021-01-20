@@ -28,7 +28,8 @@ vectorizer = TfidfVectorizer(sublinear_tf=True, max_df=0.5,
 features_train = vectorizer.fit_transform(features_train)
 features_test  = vectorizer.transform(features_test).toarray()
 
-
+## get feature names
+feature_names = vectorizer.get_feature_names() 
 ### a classic way to overfit is to use a small number
 ### of data points and a large number of features;
 ### train on only 150 events to put ourselves in this regime
@@ -38,6 +39,18 @@ labels_train   = labels_train[:150]
 
 
 ### your code goes here
+from sklearn.tree import DecisionTreeClassifier
+clf = DecisionTreeClassifier()
+clf.fit(features_train, labels_train)
+acc = clf.score(features_test, labels_test)
+print acc 
 
+importances = clf.feature_importances_
+indices = numpy.argsort(importances)[::-1]
+for f in range(features_train.shape[1]):    
+    if importances[indices[f]] > 0.2:
+        print("%d. feature %d (%f)" % (f + 1, indices[f], importances[indices[f]]))
+        print feature_names[indices[f]]
+    # break 
 
 
